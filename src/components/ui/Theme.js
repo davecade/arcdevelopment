@@ -28,6 +28,6 @@ export default createTheme({
             fontSize: "1rem",
             textTransform: "none",
             color: "white"
-        }
+        },
     }
 })
