@@ -8,6 +8,8 @@ import Tab from '@material-ui/core/Tab'
 import Button from '@material-ui/core/Button'
 import logo from '../../assets/logo.svg'
 import { Link } from 'react-router-dom'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 
 
 function ElevationScroll(props) {
@@ -58,9 +60,21 @@ const useStyles = makeStyles(theme => ({
 const Header = (props) => {
   const classes = useStyles()
   const [ value, setValue ] = useState(0)
+  const [ anchorEl, setAnchorEl ] = useState(null)
+  const [ open, setOpen ] = useState(false)
 
   const handleChange = (e, value) => {
     setValue(value)
+  }
+
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget)
+    setOpen(true)
+  }
+
+  const handleClose = ( e, value ) => {
+    setAnchorEl(null)
+    setOpen(false)
   }
 
   useEffect(() => {
@@ -85,16 +99,60 @@ const Header = (props) => {
                   <Button disableRipple onClick={() => setValue(0)} component={Link} to="/" className={classes.logoContainer}>
                     <img alt="company logo" className={classes.logo} src={logo} />
                   </Button>
-                    <Tabs className={classes.tabContainer} indicatorColor="primary" onChange={handleChange} value={value}>
-                      <Tab className={classes.tab} component={Link} to="/" label="Home" />
-                      <Tab className={classes.tab} component={Link} to="/services" label="Services" />
-                      <Tab className={classes.tab} component={Link} to="/revolution" label="The Revolution" />
-                      <Tab className={classes.tab} component={Link} to="/about" label="About Us" />
-                      <Tab className={classes.tab} component={Link} to="/contact" label="Contact Us" />
+                    <Tabs 
+                      className={classes.tabContainer}
+                      indicatorColor="primary"
+                      onChange={handleChange}
+                      value={value}
+                    >
+                      <Tab
+                        className={classes.tab}
+                        component={Link}
+                        to="/"
+                        label="Home"
+                      />
+                      <Tab
+                        aria-owns={anchorEl ? "simple-menu" : undefined}
+                        aria-haspopup={anchorEl ? "true" : undefined}
+                        onMouseOver={handleClick}
+                        className={classes.tab}
+                        component={Link}
+                        to="/services"
+                        label="Services"  
+                      />
+                      <Tab
+                        className={classes.tab}
+                        component={Link}
+                        to="/revolution"
+                        label="The Revolution"
+                      />
+                      <Tab
+                        className={classes.tab}
+                        component={Link}
+                        to="/about"
+                        label="About Us"
+                      />
+                      <Tab
+                        className={classes.tab}
+                        component={Link}
+                        to="/contact"
+                        label="Contact Us"
+                      />
                     </Tabs>
                     <Button variant="contained" color="secondary" className={classes.button}>
                         Free Estimate
-                      </Button>
+                    </Button>
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={anchorEl}
+                      open={open}
+                      onClose={handleClose}
+                      MenuListProps={{onMouseLeave: handleClose}}
+                    >
+                        <MenuItem onClick={handleClose}>Customer Software Development</MenuItem>
+                        <MenuItem onClick={handleClose}>Mobile App Development</MenuItem>
+                        <MenuItem onClick={handleClose}>Website Development</MenuItem>
+                    </Menu>
                 </Toolbar>
             </AppBar>
         </ElevationScroll>
