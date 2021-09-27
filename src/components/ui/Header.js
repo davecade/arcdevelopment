@@ -54,6 +54,18 @@ const useStyles = makeStyles(theme => ({
     marginLeft: "50px",
     marginRight: "25px",
     height: "45px",
+  },
+  menu: {
+    backgroundColor: theme.palette.primary.main,
+    color: "white",
+    borderRadius: 0,
+  },
+  menuItem: {
+    ...theme.typography.tab,
+    opacity: 0.7,
+    "&:hover": {
+      opacity: 1
+    }
   }
 }))
   
@@ -148,10 +160,41 @@ const Header = (props) => {
                       open={open}
                       onClose={handleClose}
                       MenuListProps={{onMouseLeave: handleClose}}
+                      classes={{paper: classes.menu}}
+                      elevation={0}
                     >
-                        <MenuItem onClick={handleClose}>Customer Software Development</MenuItem>
-                        <MenuItem onClick={handleClose}>Mobile App Development</MenuItem>
-                        <MenuItem onClick={handleClose}>Website Development</MenuItem>
+                        <MenuItem
+                          component={Link}
+                          to="/services"
+                          onClick={() => {handleClose(); setValue(1)}}
+                          classes={{root: classes.menuItem}}
+                        >
+                          Services
+                        </MenuItem>
+                        <MenuItem
+                          component={Link}
+                          to="/customsoftware"
+                          onClick={() => {handleClose(); setValue(1)}}
+                          classes={{root: classes.menuItem}}
+                        >
+                          Customer Software Development
+                        </MenuItem>
+                        <MenuItem
+                          component={Link}
+                          to="/mobileapps"
+                          onClick={() => {handleClose(); setValue(1)}}
+                          classes={{root: classes.menuItem}}
+                        >
+                            Mobile App Development
+                          </MenuItem>
+                        <MenuItem
+                          component={Link}
+                          to="/websites"
+                          onClick={() => {handleClose(); setValue(1)}}
+                          classes={{root: classes.menuItem}}
+                        >
+                          Website Development
+                        </MenuItem>
                     </Menu>
                 </Toolbar>
             </AppBar>
