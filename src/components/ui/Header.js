@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { useTheme, useMediaQuery } from '@material-ui/core';
+import { SwipeableDrawer } from '@material-ui/core';
+import MenuIcon from "@material-ui/icons/Menu"
 
 
 function ElevationScroll(props) {
@@ -85,24 +87,27 @@ const useStyles = makeStyles(theme => ({
 const Header = (props) => {
   const classes = useStyles()
   const theme = useTheme();
+  const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const matches = useMediaQuery(theme.breakpoints.down('md'))
+
+  const [ openDrawer, setOpenDrawer ] = useState(false)
   const [ value, setValue ] = useState(0)
   const [ anchorEl, setAnchorEl ] = useState(null)
-  const [ open, setOpen ] = useState(false)
+  const [ openMenu, setOpenMenu ] = useState(false)
   const [ selectedIndex, setSelectedIndex ] = useState(0)
 
-  const handleChange = (e, value) => {
-    setValue(value)
+  const handleChange = (e, newValue) => {
+    setValue(newValue)
   }
 
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget)
-    setOpen(true)
+    setOpenMenu(true)
   }
 
   const handleClose = ( e, value ) => {
     setAnchorEl(null)
-    setOpen(false)
+    setOpenMenu(false)
   }
 
   const handleMenuItemClick = (e, index) => {
@@ -243,7 +248,7 @@ const Header = (props) => {
           <Menu
             id="simple-menu"
             anchorEl={anchorEl}
-            open={open}
+            open={openMenu}
             onClose={handleClose}
             MenuListProps={{onMouseLeave: handleClose}}
             classes={{paper: classes.menu}}
