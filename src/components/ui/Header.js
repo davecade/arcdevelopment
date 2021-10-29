@@ -13,6 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { useTheme, useMediaQuery } from '@material-ui/core';
 import { SwipeableDrawer } from '@material-ui/core';
 import MenuIcon from "@material-ui/icons/Menu"
+import { IconButton } from '@material-ui/core';
 
 
 function ElevationScroll(props) {
@@ -272,6 +273,30 @@ const Header = (props) => {
     </Fragment>
   )
 
+  const drawer = (
+    <Fragment>
+      <SwipeableDrawer
+        disableBackdropTransition={!iOS}
+        disableDiscovery={iOS}
+        open={openDrawer}
+        onClose={() => {
+          setOpenDrawer(false)
+        }}
+        onOpen={() => {
+          setOpenDrawer(true)
+        }}
+      >
+        Example Drawer
+      </SwipeableDrawer>
+      <IconButton
+        onClick={() => setOpenDrawer(!openDrawer)}
+        disableRipple
+      >
+        <MenuIcon />
+      </IconButton>
+    </Fragment>
+  )
+
     return (
       <Fragment>
         <ElevationScroll>
@@ -280,7 +305,7 @@ const Header = (props) => {
                   <Button disableRipple onClick={() => setValue(0)} component={Link} to="/" className={classes.logoContainer}>
                     <img alt="company logo" className={classes.logo} src={logo} />
                   </Button>
-                  { matches ? null : tabs }
+                  { matches ? drawer : tabs }
                 </Toolbar>
             </AppBar>
         </ElevationScroll>
