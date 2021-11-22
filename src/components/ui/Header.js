@@ -286,6 +286,7 @@ const Header = (props) => {
     </Fragment>
   )
 
+  // Drawer
   const drawer = (
     <Fragment>
       <SwipeableDrawer
