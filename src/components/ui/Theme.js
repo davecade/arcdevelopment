@@ -5,7 +5,7 @@ const arcOrange = "#FFBA60"
 
 export default createTheme({
     palette: {
-        comment: {
+        common: {
             blue: arcBlue,
             orange: arcOrange
         },
